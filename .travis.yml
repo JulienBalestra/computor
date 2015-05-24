@@ -2,5 +2,5 @@ os:
    - linux
    - osx
 language: python
-script: nosetests
+script: nosetests srcs/tests/test_computor.py
 
