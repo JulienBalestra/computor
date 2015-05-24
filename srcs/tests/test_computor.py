@@ -1,11 +1,11 @@
-from unittest import TestCase
+import unittest
 from subprocess import call, check_output
 import os
 
 import srcs.computor as computor
 
 
-class TestComputorV1(TestCase):
+class TestComputorV1(unittest.TestCase):
 	context_path = os.path.split(os.path.dirname(__file__))[0]
 	model = "5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0"
 	neg_model = "7 * X^0 + 5 * X^1 + 3 * X^2 = 0"
@@ -148,7 +148,7 @@ class TestComputorV1(TestCase):
 			computor.my_sqrt("5")
 
 
-class TestComputorFull(TestCase):
+class TestComputorFull(unittest.TestCase):
 	context_path = os.path.split(os.path.dirname(__file__))[0]
 	null = open(os.devnull, 'w')
 
@@ -310,3 +310,8 @@ class TestComputorFull(TestCase):
 		res = check_output(["python", self.context_path + "/computor.py", equation])
 		self.assertEqual("Reduced form: 3 * X^2 = 0\nPolynomial degree: 2\nDiscriminant is null, the solution is:\n0\n",
 		                 res)
+
+
+if __name__ == "__main__":
+    unittest.main()
+
