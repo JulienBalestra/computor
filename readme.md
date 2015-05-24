@@ -1,4 +1,4 @@
-# Equation Solver
+# Equation Solver [![Build Status](https://travis-ci.org/jbalestra/computor.svg?branch=master)](https://travis-ci.org/jbalestra/computor)
 
 
 This project allow to solve polynomial equation in the following degrees :
