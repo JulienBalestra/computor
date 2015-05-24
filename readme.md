@@ -23,3 +23,9 @@ In python projects :
 
 
     from computor import computor
+
+## Contributors
+
+* Julie Rossi
+* Umi Lefebvre
+* Julien Balestra
