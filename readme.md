@@ -18,8 +18,12 @@ Used Python 2.7 for this project
     ./computor.py "5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0"
     ./computor.py "5 * X^0 + 4 * X^1 - 9.3 * X^2 = 0"
     ...
+
+**See the illustrated example below :**
+
+<img src="computor.png">
     
-In python projects :
+**In python projects :**
 
 
     from computor import computor
