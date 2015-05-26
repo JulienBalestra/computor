@@ -203,6 +203,10 @@ class TestComputorFull(unittest.TestCase):
 		self.assertEqual("Reduced form: 3 * X^2 = 0\nPolynomial degree: 2\nDiscriminant is null, the solution is:\n0\n",
 		                 res)
 
+		equation = "X^0 + 0 * X^1 + 3 * X^2 = 0"
+		ret = call(["python", self.context_path + "/computor.py", equation], stderr=TestComputorV1.null)
+		self.assertEqual(1, ret)
+
 	def test_blanks_s2(self):
 		# Degree > 2
 		equation = "  5 * X^0 + 4 * X^1 - 9.3 * X^12 = 1 * X^0    "
