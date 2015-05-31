@@ -2,7 +2,7 @@ import unittest
 import os
 from math import sqrt
 
-import computorv1.solver as solver
+import srcs.solver as solver
 
 
 class TestSolver(unittest.TestCase):

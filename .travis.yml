@@ -2,5 +2,7 @@ os:
    - linux
    - osx
 language: python
-script: nosetests srcs/tests/test_computor.py
+script: 
+	- nosetests srcs/tests/test_computor.py
+	- nosetests srcs/tests/test_solver.py
 
