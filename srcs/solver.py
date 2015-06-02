@@ -1,5 +1,6 @@
 import re
 import os
+import argparse
 
 
 def my_sqrt(x):
@@ -12,6 +13,8 @@ def my_sqrt(x):
 
 
 def convert_float(number):
+	if number is None:
+		return None
 	if number - int(number) == 0:
 		return int(number)
 	return number
@@ -27,7 +30,7 @@ class Equation:
 
 	@staticmethod
 	def check_n_format_input(eq_input):
-		for change in [("**", "^"), ("x", "X"), (" ", ""), ("\t", "")]:
+		for change in [("**", "^"), ("x", "X"), (" ", ""), ("\t", ""), ("\n", "")]:
 			eq_input = eq_input.replace(change[0], change[1])
 
 		pattern = "([0-9]+.?[0-9]*\*X\^[0-9]+[\+\-])*[0-9]+.?[0-9]*\*X\^[0-9]+"
@@ -39,8 +42,8 @@ class Equation:
 			pass
 		else:
 			raise ArithmeticError(
-				"The equation is not coherent, should be like 5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0")
-
+				"The equation is not coherent, should be quoted like"
+				"\"5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0\"")
 		for sign in ["+", "-", "*", "="]:
 			eq_input = eq_input.replace(sign, " %s " % sign)
 		return eq_input
@@ -130,7 +133,7 @@ class Equation:
 			self._solve_two()
 		else:
 			self.solution = (False,)
-			
+
 	def _string_reduced_form(self):
 		equation = []
 		for i in range(self.degree + 1):
@@ -145,11 +148,11 @@ class Equation:
 			equation.append("0")
 			return "Reduced form: " + " ".join(equation).replace("+ -", "- ")
 		return "No reduced form"
-			
+
 	def _build_display_message(self):
 		if self.solution is None:
 			self.solve()
-			
+
 		message = list()
 		message.append(self._string_reduced_form())
 		message.append("Polynomial degree: %s" % str(self.degree))
@@ -176,7 +179,31 @@ class Equation:
 		else:
 			message.append("The polynomial degree is strictly greater than 2, I can't solve")
 		return message
-	
+
 	def display_solution(self, fd=1):
 		for line in self._build_display_message():
 			os.write(fd, line + "\n")
+
+	def get_discriminant(self):
+		if self.discriminant is None and self.degree is None:
+			self.solve()
+		return convert_float(self.discriminant)
+
+	def get_degree(self):
+		if self.degree is None:
+			return self._process_degree()
+		return self.degree
+
+	def get_reduced(self):
+		if self.reduced == {}:
+			return self._process_reduced_form()
+		return self.reduced
+
+
+if __name__ == "__main__":
+	args = argparse.ArgumentParser()
+	args.add_argument("equation", type=Equation.check_n_format_input,
+					  help="Should be quoted like \"5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0\"")
+	solver = Equation(args.parse_args().equation)
+	solver.solve()
+	solver.display_solution()
