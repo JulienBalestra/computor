@@ -42,10 +42,13 @@
     </div>
     <div class="col-md-12">
         <div class="jumbotron">
-
+            <p class="text-center">
+                {{ top }}
+            </p>
+            <br>
             <div class="col-md-5">
                 <p class="text-center">
-                    <i>5 * X^0 + 4 * X^1 - 9.3 * X^2</i>
+                    <i>{{ left }}</i>
                 </p>
             </div>
             <div class="col-md-2">
@@ -55,11 +58,16 @@
             </div>
             <div class="col-md-5">
                 <p class="text-center">
-                    <i>0</i>
+                    <i>{{ right }}</i>
                 </p>
             </div>
             <br>
             <br>
+            <p class="text-center">
+                {% for line in response %}
+                <br>{{ line }}
+                {% endfor %}
+            </p>
         </div>
     </div>
 </div>
