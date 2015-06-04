@@ -40,6 +40,84 @@ class TestSolver(unittest.TestCase):
 		check = solver.Equation(eq)
 		self.assertEqual('5 * X^0 = 5 * X^0', str(check))
 
+	def test_check_n_format_true_more(self):
+		eq = "10 * X^0= -5 * X^0"
+		check = solver.Equation(eq)
+		self.assertEqual('10 * X^0 = - 5 * X^0', str(check))
+
+		eq = "10 * X^0= +5 * X^0"
+		check = solver.Equation(eq)
+		self.assertEqual('10 * X^0 = 5 * X^0', str(check))
+
+		eq = "-10 * X^0= +5 * X^0"
+		check = solver.Equation(eq)
+		self.assertEqual('- 10 * X^0 = 5 * X^0', str(check))
+
+		eq = "+10 * X^0= +5 * X^0"
+		check = solver.Equation(eq)
+		self.assertEqual('10 * X^0 = 5 * X^0', str(check))
+
+		eq = "  +   10 * X^0 = -   5 * X^0"
+		check = solver.Equation(eq)
+		self.assertEqual('10 * X^0 = - 5 * X^0', str(check))
+
+		eq = "  +   10 * X^0 = -   0"
+		check = solver.Equation(eq)
+		self.assertEqual('10 * X^0 = 0', str(check))
+
+		eq = "  +   10 * X^0 = +   0"
+		check = solver.Equation(eq)
+		self.assertEqual('10 * X^0 = 0', str(check))
+
+		eq = "-   0 = +   10 * X^0 "
+		check = solver.Equation(eq)
+		self.assertEqual('0 = 10 * X^0', str(check))
+
+		eq = "+   0 = +   10 * X^0 "
+		check = solver.Equation(eq)
+		self.assertEqual('0 = 10 * X^0', str(check))
+
+	def test_check_n_format_true_useless_zero(self):
+		eq = "+   00 = +   10 * X^0 "
+		check = solver.Equation(eq)
+		self.assertEqual('0 = 10 * X^0', str(check))
+
+		eq = "10 * X^0= -0000"
+		check = solver.Equation(eq)
+		self.assertEqual('10 * X^0 = 0', str(check))
+
+		eq = "10 * X^0= +0000"
+		check = solver.Equation(eq)
+		self.assertEqual('10 * X^0 = 0', str(check))
+
+		eq = "10 * X^0= 0."
+		check = solver.Equation(eq)
+		self.assertEqual('10 * X^0 = 0', str(check))
+
+		eq = "0. = 10 * X^0"
+		check = solver.Equation(eq)
+		self.assertEqual('0 = 10 * X^0', str(check))
+
+		eq = "10 * X^0= 0.0"
+		check = solver.Equation(eq)
+		self.assertEqual('10 * X^0 = 0', str(check))
+
+		eq = "0.0 = 10 * X^0"
+		check = solver.Equation(eq)
+		self.assertEqual('0 = 10 * X^0', str(check))
+
+		eq = "0. = 10 * X^0"
+		check = solver.Equation(eq)
+		self.assertEqual('0 = 10 * X^0', str(check))
+
+		eq = "0,0 = 10 * X^0"
+		check = solver.Equation(eq)
+		self.assertEqual('0 = 10 * X^0', str(check))
+
+		eq = "0, = 10,0 * X^0"
+		check = solver.Equation(eq)
+		self.assertEqual('0 = 10.0 * X^0', str(check))
+
 	def test_check_n_format_raise(self):
 		eq = "5 * X^0="
 		with self.assertRaises(ArithmeticError):
@@ -86,6 +164,16 @@ class TestSolver(unittest.TestCase):
 			check = solver.Equation(eq)
 			self.assertEqual(None, check.input)
 
+		eq = "++5 * X^0 = 0"
+		with self.assertRaises(ArithmeticError):
+			check = solver.Equation(eq)
+			self.assertEqual(None, check.input)
+
+		eq = "+- 5 * X^0 = 0"
+		with self.assertRaises(ArithmeticError):
+			check = solver.Equation(eq)
+			self.assertEqual(None, check.input)
+
 	def test__get_reduced_form(self):
 		check = solver.Equation(self.pos_eq)
 		self.assertEqual({'X^1': 4.0, 'X^0': 4.0, 'X^2': -9.3}, check._process_reduced_form())
@@ -116,6 +204,15 @@ class TestSolver(unittest.TestCase):
 		self.assertEqual(0, check._process_degree())
 
 		check = solver.Equation("5 * X^2 + 7 * X^1 = 5 * X^2")
+		self.assertEqual(1, check._process_degree())
+
+		check = solver.Equation("-5 * X^2 + 7 * X^1 = - 5 * X^2")
+		self.assertEqual(1, check._process_degree())
+
+		check = solver.Equation(" + 5 * X^2 + 7 * X^1 = + 5 * X^2")
+		self.assertEqual(1, check._process_degree())
+
+		check = solver.Equation(" + 5 * X^2 + 7 * X^1 = 5 * X^2")
 		self.assertEqual(1, check._process_degree())
 
 	def test_solve_two(self):
@@ -161,6 +258,35 @@ class TestSolver(unittest.TestCase):
 				  '-0.475131463909',
 				  '0.905238990791']
 		check = solver.Equation(self.pos_eq)
+		message = check.build_display_message()
+		self.assertEqual(expect, message)
+
+		# d2 > 0
+		expect = ['Reduced form: 5 * X^0 + 10 * X^1 + 5 * X^2 = 0',
+				  'Polynomial degree: 2',
+				  'Discriminant is null, the solution is:',
+				  '-1']
+		check = solver.Equation("6 * X^0 + 11 * X^1 + 5 * X^2 = 1 * X^0 + 1 * X^1")
+		message = check.build_display_message()
+		self.assertEqual(expect, message)
+
+		# d2 > 0
+		expect = ['Reduced form: 4 * X^0 + 12 * X^1 + 3 * X^2 = 0',
+				  'Polynomial degree: 2',
+				  'Discriminant is strictly positive, the two solutions are:',
+				  '-0.367006838145',
+				  "-3.63299316186"]
+		check = solver.Equation("5 * X^0 + 13 * X^1 + 3 * X^2 = 1 *	X^0 + 1 * X^1")
+		message = check.build_display_message()
+		self.assertEqual(expect, message)
+
+		# d2 > 0
+		expect = ['Reduced form: 4 * X^0 + 3 * X^1 + 3 * X^2 = 0',
+				  'Polynomial degree: 2',
+				  'Discriminant is strictly negative, the two solutions are:',
+				  '-0.5 + i1.04083299973',
+				  '-0.5 - i1.04083299973']
+		check = solver.Equation("5 * X^0 + 3 * X^1 + 3 * X^2 = 1 * X^0 + 0 * X^1")
 		message = check.build_display_message()
 		self.assertEqual(expect, message)
 

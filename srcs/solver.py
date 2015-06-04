@@ -22,8 +22,10 @@ def convert_float(number):
 
 
 class Equation:
+	error = "The equation is not coherent, should be quoted like \"5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0\""
+
 	def __init__(self, eq_input, goodies=False):
-		self.input = self.check_n_format_input(eq_input)
+		self.input = self._parse_input(eq_input)
 		self.reduced = {}
 		self.degree = None
 		self.solution = None
@@ -31,23 +33,39 @@ class Equation:
 		self.goodies = goodies
 
 	@staticmethod
-	def check_n_format_input(eq_input):
-		for change in [("**", "^"), ("x", "X"), (" ", ""), ("\t", ""), ("\n", "")]:
+	def _translate_input(eq_input):
+		for change in [("**", "^"), ("x", "X"), (" ", ""), ("\t", ""), ("\n", ""), (",", ".")]:
 			eq_input = eq_input.replace(change[0], change[1])
+		return eq_input
 
-		pattern = "([0-9]+.?[0-9]*\*X\^[0-9]+[\+\-])*[0-9]+.?[0-9]*\*X\^[0-9]+"
+	def _parse_input(self, eq_input):
+		eq_input = self._translate_input(eq_input)
+		# eq_input = self._format_natural_form(eq_input)
+
+		pattern = "[\-\+]?([0-9]+\.?[0-9]*\*X\^[0-9]+[\+\-])*[0-9]+\.?[0-9]*\*X\^[0-9]+"
 		if re.match(pattern + "=" + pattern + "$", eq_input) is not None:
 			pass
-		elif re.match(pattern + "=0$", eq_input) is not None:
-			pass
-		elif re.match("0=" + pattern + "$", eq_input) is not None:
-			pass
+		elif re.match(pattern + "=[\-\+]?0+\.?(0+)?$", eq_input) is not None:
+			eq_input = eq_input.split("=")
+			eq_input = eq_input[0] + "=0"
+		elif re.match("[\-\+]?0+\.?(0+)?=" + pattern + "$", eq_input) is not None:
+			eq_input = eq_input.split("=")
+			eq_input = "0=" + eq_input[1]
 		else:
-			raise ArithmeticError(
-				"The equation is not coherent, should be quoted like "
-				"\"5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0\"")
+			raise ArithmeticError(self.error)
+
 		for sign in ["+", "-", "*", "="]:
 			eq_input = eq_input.replace(sign, " %s " % sign)
+		eq_input = eq_input.replace("=  +", "= ")
+
+		while "  " in eq_input:
+			eq_input = eq_input.replace("  ", " ")
+
+		if " - " == eq_input[:3]:
+			eq_input = eq_input[1:]
+		elif " + " == eq_input[:3]:
+			eq_input = eq_input[3:]
+
 		return eq_input
 
 	def __repr__(self):
@@ -220,7 +238,7 @@ if __name__ == "__main__":
 	args = argparse.ArgumentParser()
 	args.add_argument("equation", help="Should be quoted like \"5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0\"")
 	args.add_argument('-g', '--goodies', type=bool, default=False, help='Activate the pretty print ?')
-	args.add_argument('-e', '--error', type=bool, default=False, help='Remove the python exception ?')
+	args.add_argument('-e', '--error', type=bool, default=True, help='Add the python exception ?')
 	goodies = args.parse_args().goodies
 	if args.parse_args().error is True:
 		try:
@@ -229,7 +247,7 @@ if __name__ == "__main__":
 			solver.display_solution()
 		except ArithmeticError:
 			os.write(2, "The equation is not coherent, should be quoted like :\n"
-			            "\"5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0\"\n")
+						"\"5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0\"\n")
 			exit(1)
 	else:
 		solver = Equation(args.parse_args().equation, goodies=goodies)
