@@ -1,12 +1,12 @@
-import unittest
+from unittest import TestCase
 from subprocess import call, check_output
 import os
 
 import srcs.computor as computor
 
 
-class TestComputorV1(unittest.TestCase):
-	context_path = os.path.split(os.path.dirname(__file__))[0]
+class TestComputorV1(TestCase):
+	context_path = os.path.split(os.path.dirname(__file__))[0] + "/"
 	model = "5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0"
 	neg_model = "7 * X^0 + 5 * X^1 + 3 * X^2 = 0"
 	null = open(os.devnull, 'w')
@@ -68,7 +68,7 @@ class TestComputorV1(unittest.TestCase):
 
 		reduced = {'X^1': 5.0, 'X^0': 7.0, 'X^2': 3.0}
 		self.assertEqual((-59., '-0.833333333333 + i1.28019095798', '-0.833333333333 - i1.28019095798'),
-		                 computor.solve_two(reduced))
+						 computor.solve_two(reduced))
 
 	def test_regex_false(self):
 		s = "zzzzzz"
@@ -148,8 +148,8 @@ class TestComputorV1(unittest.TestCase):
 			computor.my_sqrt("5")
 
 
-class TestComputorFull(unittest.TestCase):
-	context_path = os.path.split(os.path.dirname(__file__))[0]
+class TestComputorFull(TestCase):
+	context_path = os.path.split(os.path.dirname(__file__))[0] + "/"
 	null = open(os.devnull, 'w')
 
 	def test_basic_s2(self):
@@ -157,8 +157,8 @@ class TestComputorFull(unittest.TestCase):
 		equation = "5 * X^0 + 4 * X^1 - 9.3 * X^12 = 1 * X^0"
 		res = check_output(["python", self.context_path + "/computor.py", equation])
 		self.assertEqual("Reduced form: 4 * X^0 + 4 * X^1 - 9.3 * X^12 = 0\n"
-		                 "Polynomial degree: 12\n"
-		                 "The polynomial degree is strictly greater than 2, I can't solve.\n", res)
+						 "Polynomial degree: 12\n"
+						 "The polynomial degree is strictly greater than 2, I can't solve.\n", res)
 
 	def test_basic_0(self):
 		# Degree 0 All solutions
@@ -201,19 +201,15 @@ class TestComputorFull(unittest.TestCase):
 		equation = "0 * X^0 + 0 * X^1 + 3 * X^2 = 0"
 		res = check_output(["python", self.context_path + "/computor.py", equation])
 		self.assertEqual("Reduced form: 3 * X^2 = 0\nPolynomial degree: 2\nDiscriminant is null, the solution is:\n0\n",
-		                 res)
-
-		equation = "X^0 + 0 * X^1 + 3 * X^2 = 0"
-		ret = call(["python", self.context_path + "/computor.py", equation], stderr=TestComputorV1.null)
-		self.assertEqual(1, ret)
+						 res)
 
 	def test_blanks_s2(self):
 		# Degree > 2
 		equation = "  5 * X^0 + 4 * X^1 - 9.3 * X^12 = 1 * X^0    "
 		res = check_output(["python", self.context_path + "/computor.py", equation])
 		self.assertEqual("Reduced form: 4 * X^0 + 4 * X^1 - 9.3 * X^12 = 0\n"
-		                 "Polynomial degree: 12\n"
-		                 "The polynomial degree is strictly greater than 2, I can't solve.\n", res)
+						 "Polynomial degree: 12\n"
+						 "The polynomial degree is strictly greater than 2, I can't solve.\n", res)
 
 	def test_blanks_0(self):
 		# Degree 0 All solutions
@@ -256,7 +252,7 @@ class TestComputorFull(unittest.TestCase):
 		equation = "0*X^0+0*X^1+3*X^2=0       "
 		res = check_output(["python", self.context_path + "/computor.py", equation])
 		self.assertEqual("Reduced form: 3 * X^2 = 0\nPolynomial degree: 2\nDiscriminant is null, the solution is:\n0\n",
-		                 res)
+						 res)
 
 		equation = "       0=0*X^0+0*X^1+3*X^2"
 		res = check_output(["python", self.context_path + "/computor.py", equation])
@@ -313,9 +309,4 @@ class TestComputorFull(unittest.TestCase):
 		equation = "0 * x**0 + 0 * x^1 + 3 * X**2 = 0"
 		res = check_output(["python", self.context_path + "/computor.py", equation])
 		self.assertEqual("Reduced form: 3 * X^2 = 0\nPolynomial degree: 2\nDiscriminant is null, the solution is:\n0\n",
-		                 res)
-
-
-if __name__ == "__main__":
-    unittest.main()
-
+						 res)
