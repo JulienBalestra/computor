@@ -40,7 +40,7 @@ class Equation:
 
 	def _parse_input(self, eq_input):
 		eq_input = self._translate_input(eq_input)
-		# eq_input = self._format_natural_form(eq_input)
+		# eq_input = self._format_natural_form(eq_input) TODO
 
 		pattern = "[\-\+]?([0-9]+\.?[0-9]*\*X\^[0-9]+[\+\-])*[0-9]+\.?[0-9]*\*X\^[0-9]+"
 		if re.match(pattern + "=" + pattern + "$", eq_input) is not None:
