@@ -3,8 +3,8 @@ import os
 from math import sqrt
 from subprocess import check_output, call
 
-import computorv1.solver as solver
-import computorv1.web_engine as web_engine
+import srcs.solver as solver
+import srcs.web_engine as web_engine
 
 
 class TestFraction(unittest.TestCase):
@@ -251,7 +251,7 @@ class TestNaturalForm(unittest.TestCase):
 
 
 class TestSolver(unittest.TestCase):
-	context_path = os.path.split(os.path.dirname(__file__))[0] + "/computorv1"
+	context_path = os.path.split(os.path.dirname(__file__))[0] + "/"
 	pos_eq = "5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0"
 	neg_eq = "7 * X^0 + 5 * X^1 + 3 * X^2 = 0"
 	null = open(os.devnull, 'w')
@@ -760,7 +760,7 @@ class TestSolver(unittest.TestCase):
 
 
 class FunctionalSolver(unittest.TestCase):
-	context_path = os.path.split(os.path.dirname(__file__))[0] + "/computorv1"
+	context_path = os.path.split(os.path.dirname(__file__))[0] + "/"
 	null = open(os.devnull, 'w')
 
 	def test_basic_s2(self):
