@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template
-import solver
+from srcs import solver
 
 application = Flask(__name__)
 
