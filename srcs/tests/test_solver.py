@@ -3,8 +3,8 @@ import os
 from math import sqrt
 from subprocess import check_output, call
 
-import srcs.solver as solver
-import srcs.web_engine as web_engine
+import computorv1.solver as solver
+import computorv1.web_engine as web_engine
 
 
 class TestFraction(unittest.TestCase):
@@ -251,7 +251,7 @@ class TestNaturalForm(unittest.TestCase):
 
 
 class TestSolver(unittest.TestCase):
-	context_path = os.path.split(os.path.dirname(__file__))[0] + "/"
+	context_path = os.path.split(os.path.dirname(__file__))[0] + "/computorv1"
 	pos_eq = "5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0"
 	neg_eq = "7 * X^0 + 5 * X^1 + 3 * X^2 = 0"
 	null = open(os.devnull, 'w')
@@ -473,8 +473,8 @@ class TestSolver(unittest.TestCase):
 		check = solver.Equation(self.neg_eq)
 		check.solve()
 		self.assertEqual(-59., check.discriminant)
-		self.assertEqual(('5 / -6 + i1.28019095798',
-						  '5 / -6 - i1.28019095798'), check.solution)
+		self.assertEqual(('-5 / 6 + i1.28019095798',
+						  '-5 / 6 - i1.28019095798'), check.solution)
 
 	def test_solve_one(self):
 		check = solver.Equation("6 * X^1 = 5 * X^0")
@@ -542,8 +542,8 @@ class TestSolver(unittest.TestCase):
 				  'Reduced form: 4 * X^0 + 3 * X^1 + 3 * X^2 = 0',
 				  'Polynomial degree: 2',
 				  'Discriminant is strictly negative, the two solutions are:',
-				  '1 / -2 + i1.04083299973',
-				  '1 / -2 - i1.04083299973']
+				  '-1 / 2 + i1.04083299973',
+				  '-1 / 2 - i1.04083299973']
 		check = solver.Equation("5 * X^0 + 3 * X^1 + 3 * X^2 = 1 * X^0 + 0 * X^1")
 		message = check.build_display_message()
 		self.assertEqual(expect, message)
@@ -553,8 +553,8 @@ class TestSolver(unittest.TestCase):
 				  "Reduced form: 7 * X^0 + 5 * X^1 + 3 * X^2 = 0",
 				  'Polynomial degree: 2',
 				  'Discriminant is strictly negative, the two solutions are:',
-				  '5 / -6 + i1.28019095798',
-				  '5 / -6 - i1.28019095798']
+				  '-5 / 6 + i1.28019095798',
+				  '-5 / 6 - i1.28019095798']
 		check = solver.Equation(self.neg_eq)
 		message = check.build_display_message()
 		self.assertEqual(expect, message)
@@ -760,7 +760,7 @@ class TestSolver(unittest.TestCase):
 
 
 class FunctionalSolver(unittest.TestCase):
-	context_path = os.path.split(os.path.dirname(__file__))[0] + "/"
+	context_path = os.path.split(os.path.dirname(__file__))[0] + "/computorv1"
 	null = open(os.devnull, 'w')
 
 	def test_basic_s2(self):
@@ -822,8 +822,8 @@ class FunctionalSolver(unittest.TestCase):
 		self.assertEqual("Original Equation: 7 * X^0 + 5 * X^1 + 3 * X^2 = 0\n"
 						 "Reduced form: 7 * X^0 + 5 * X^1 + 3 * X^2 = 0\nPolynomial degree: 2\n"
 						 "Discriminant is strictly negative, the two solutions are:\n"
-						 "5 / -6 + i1.28019095798\n"
-						 "5 / -6 - i1.28019095798\n", res)
+						 "-5 / 6 + i1.28019095798\n"
+						 "-5 / 6 - i1.28019095798\n", res)
 
 	def test_basic_22(self):
 		equation = "0 * X^0 + 0 * X^1 + 3 * X^2 = 0"
@@ -898,8 +898,8 @@ class FunctionalSolver(unittest.TestCase):
 			"Reduced form: 7 * X^0 + 5 * X^1 + 3 * X^2 = 0\n"
 			"Polynomial degree: 2\n"
 			"Discriminant is strictly negative, the two solutions are:\n"
-			"5 / -6 + i1.28019095798\n"
-			"5 / -6 - i1.28019095798\n", res)
+			"-5 / 6 + i1.28019095798\n"
+			"-5 / 6 - i1.28019095798\n", res)
 
 	def test_blanks_22(self):
 		equation = "0*X^0+0*X^1+3*X^2=0       "
@@ -973,8 +973,8 @@ class FunctionalSolver(unittest.TestCase):
 			"Reduced form: 7 * X^0 + 5 * X^1 + 3 * X^2 = 0\n"
 			"Polynomial degree: 2\n"
 			"Discriminant is strictly negative, the two solutions are:\n"
-			"5 / -6 + i1.28019095798\n"
-			"5 / -6 - i1.28019095798\n", res)
+			"-5 / 6 + i1.28019095798\n"
+			"-5 / 6 - i1.28019095798\n", res)
 
 	def test_replacement_s22(self):
 		equation = "0 * x**0 + 0 * x^1 + 3 * X**2 = 0"
@@ -989,7 +989,7 @@ class FunctionalSolver(unittest.TestCase):
 class TestWebEngine(unittest.TestCase):
 	@classmethod
 	def setUpClass(cls):
-		cls.client = web_engine.app.test_client()
+		cls.client = web_engine.application.test_client()
 
 	def test_get(self):
 		response = self.client.get('/')

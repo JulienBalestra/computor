@@ -56,7 +56,12 @@ def process_result(a, b):
     a = a / hcf
     b = b / hcf
     if a < 11 and b < 101 and b != 1:
-        return str(convert_float(a)) + " / " + str(convert_float(b))
+        result = str(convert_float(a)) + " / " + str(convert_float(b))
+        if result.count("-") == 1:
+            result = result.replace("-", "")
+            result = "-" + result
+
+        return result
     else:
         return convert_float(float(a) / float(b))
 
