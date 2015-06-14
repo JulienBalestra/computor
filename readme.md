@@ -32,6 +32,13 @@ Used Python 2.7 for this project
 **With the Web platform :**
 
     python web_engine.py
+    
+## Amazon EB
+
+This project is ready to be push on AWS Elastic Beanstalk.
+Just push a git archive on the EB platform :
+
+    git archive --format=zip HEAD > computor.zip
 
 ## Contributors
 
