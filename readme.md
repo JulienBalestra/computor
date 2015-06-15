@@ -33,10 +33,15 @@ Used Python 2.7 for this project
 
     python web_engine.py
     
-## Amazon EB
+## Amazon Web Services EB
 
 This project is ready to be push on AWS Elastic Beanstalk.
-Just upload a git archive on the EB platform :
+
+* Create an application 
+* Choose a web server environment
+* Select a python platform and downgrade it to 2.7
+* Just upload a git archive on the EB platform :
+
 
     git archive --format=zip HEAD > computor.zip
 
