@@ -15,10 +15,10 @@ Used Python 2.7 for this project
 ## How to use
 
 
-    ./solver.py "5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0"
-    ./solver.py "5 * X^0 + 4 * X^1 - 9.3 * X^2 = 0"
+    ./computor.py "5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0"
+    ./computor.py "5 * X^0 + 4 * X^1 - 9.3 * X^2 = 0"
     ...
-    ./solver.py "5 * X^0 + 4 * X^1 - 9.3 * X^2 = 0" -g True
+    ./computor.py "5 * X^0 + 4 * X^1 - 9.3 * X^2 = 0" -g True
 
 **See the illustrated example below :**
 
@@ -27,7 +27,7 @@ Used Python 2.7 for this project
 **In python projects :**
 
 
-    from solver import Equation
+    from computor import Equation
     
 **With the Web platform :**
 
