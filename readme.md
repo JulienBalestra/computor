@@ -35,7 +35,7 @@ Used Python 2.7 for this project
     
 ## Amazon Web Services EB
 
-This project is ready to be push on AWS Elastic Beanstalk.
+This project is ready to be pushed on AWS Elastic Beanstalk.
 
 * Create an application 
 * Choose a web server environment
