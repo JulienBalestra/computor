@@ -14,11 +14,13 @@ Used Python 2.7 for this project
 
 ## How to use
 
+The symlink run-me allow you to run srcs/computor.py
 
-    ./computor.py "5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0"
-    ./computor.py "5 * X^0 + 4 * X^1 - 9.3 * X^2 = 0"
+
+    ./run-me "5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0"
+    ./run-me "5 * X^0 + 4 * X^1 - 9.3 * X^2 = 0"
     ...
-    ./computor.py "5 * X^0 + 4 * X^1 - 9.3 * X^2 = 0" -g True
+    ./run-me "5 * X^0 + 4 * X^1 - 9.3 * X^2 = 0" -g True
 
 **See the illustrated example below :**
 
