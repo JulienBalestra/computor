@@ -44,6 +44,9 @@ This project is ready to be push on AWS Elastic Beanstalk.
 
 
     git archive --format=zip HEAD > computor.zip
+    
+
+or use the eb command line tool : [online doc](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3.html "online doc")
 
 ## Contributors
 
