@@ -2,7 +2,7 @@ from unittest import TestCase
 from subprocess import call, check_output
 import os
 
-import srcs.computor as computor
+import srcs.sample as computor
 
 
 class TestComputorV1(TestCase):
@@ -29,11 +29,11 @@ class TestComputorV1(TestCase):
 		self.assertEqual(self.model, computor.check_args(self.model))
 
 	def test_arguments(self):
-		ret = call(["python", self.context_path + "/computor.py", self.model], stdout=self.null)
+		ret = call(["python", self.context_path + "/sample.py", self.model], stdout=self.null)
 		self.assertEqual(0, ret)
-		ret = call(["python", self.context_path + "/computor.py", "1 == 2"], stderr=self.null)
+		ret = call(["python", self.context_path + "/sample.py", "1 == 2"], stderr=self.null)
 		self.assertEqual(1, ret)
-		ret = call(["python", self.context_path + "/computor.py", "1 2"], stderr=self.null)
+		ret = call(["python", self.context_path + "/sample.py", "1 2"], stderr=self.null)
 		self.assertEqual(1, ret)
 
 	def test_get_degree(self):
@@ -155,7 +155,7 @@ class TestComputorFull(TestCase):
 	def test_basic_s2(self):
 		# Degree > 2
 		equation = "5 * X^0 + 4 * X^1 - 9.3 * X^12 = 1 * X^0"
-		res = check_output(["python", self.context_path + "/computor.py", equation])
+		res = check_output(["python", self.context_path + "/sample.py", equation])
 		self.assertEqual("Reduced form: 4 * X^0 + 4 * X^1 - 9.3 * X^12 = 0\n"
 						 "Polynomial degree: 12\n"
 						 "The polynomial degree is strictly greater than 2, I can't solve.\n", res)
@@ -163,50 +163,50 @@ class TestComputorFull(TestCase):
 	def test_basic_0(self):
 		# Degree 0 All solutions
 		equation = "5 * X^0 = 5 * X^0"
-		res = check_output(["python", self.context_path + "/computor.py", equation])
+		res = check_output(["python", self.context_path + "/sample.py", equation])
 		self.assertEqual("No reduced form\nPolynomial degree: 0\nAll possibilities are True\n", res)
 
 		# Degree 0 No solution
 		equation = "6 * X^0 = 5 * X^0"
-		res = check_output(["python", self.context_path + "/computor.py", equation])
+		res = check_output(["python", self.context_path + "/sample.py", equation])
 		self.assertEqual("Reduced form: 1 * X^0 = 0\nPolynomial degree: 0\nThere is no solutions\n", res)
 
 	def test_basic_1(self):
 		# Degree 1
 		equation = "6 * X^1 = 5 * X^0"
-		res = check_output(["python", self.context_path + "/computor.py", equation])
+		res = check_output(["python", self.context_path + "/sample.py", equation])
 		self.assertEqual(
 			"Reduced form: -5 * X^0 + 6 * X^1 = 0\nPolynomial degree: 1\nThe solution is:\n0.833333333333\n", res)
 		equation = "6 * X^1 = 0"
-		res = check_output(["python", self.context_path + "/computor.py", equation])
+		res = check_output(["python", self.context_path + "/sample.py", equation])
 		self.assertEqual(
 			"Reduced form: 6 * X^1 = 0\nPolynomial degree: 1\nThe solution is:\n0\n", res)
 
 	def test_basic_2(self):
 		# Degree 2
 		equation = "5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0"
-		res = check_output(["python", self.context_path + "/computor.py", equation])
+		res = check_output(["python", self.context_path + "/sample.py", equation])
 		self.assertEqual(
 			"Reduced form: 4 * X^0 + 4 * X^1 - 9.3 * X^2 = 0\nPolynomial degree: 2\n"
 			"Discriminant is strictly positive, the two solutions are:\n"
 			"-0.475131463909\n0.905238990791\n", res)
 
 		equation = "7 * X^0 + 5 * X^1 + 3 * X^2 = 0"
-		res = check_output(["python", self.context_path + "/computor.py", equation])
+		res = check_output(["python", self.context_path + "/sample.py", equation])
 		self.assertEqual(
 			"Reduced form: 7 * X^0 + 5 * X^1 + 3 * X^2 = 0\nPolynomial degree: 2\n"
 			"Discriminant is strictly negative, the two solutions are:\n"
 			"-0.833333333333 + i1.28019095798\n-0.833333333333 - i1.28019095798\n", res)
 
 		equation = "0 * X^0 + 0 * X^1 + 3 * X^2 = 0"
-		res = check_output(["python", self.context_path + "/computor.py", equation])
+		res = check_output(["python", self.context_path + "/sample.py", equation])
 		self.assertEqual("Reduced form: 3 * X^2 = 0\nPolynomial degree: 2\nDiscriminant is null, the solution is:\n0\n",
 						 res)
 
 	def test_blanks_s2(self):
 		# Degree > 2
 		equation = "  5 * X^0 + 4 * X^1 - 9.3 * X^12 = 1 * X^0    "
-		res = check_output(["python", self.context_path + "/computor.py", equation])
+		res = check_output(["python", self.context_path + "/sample.py", equation])
 		self.assertEqual("Reduced form: 4 * X^0 + 4 * X^1 - 9.3 * X^12 = 0\n"
 						 "Polynomial degree: 12\n"
 						 "The polynomial degree is strictly greater than 2, I can't solve.\n", res)
@@ -214,99 +214,99 @@ class TestComputorFull(TestCase):
 	def test_blanks_0(self):
 		# Degree 0 All solutions
 		equation = "5*X^0=5*X^0"
-		res = check_output(["python", self.context_path + "/computor.py", equation])
+		res = check_output(["python", self.context_path + "/sample.py", equation])
 		self.assertEqual("No reduced form\nPolynomial degree: 0\nAll possibilities are True\n", res)
 
 		# Degree 0 No solution
 		equation = "6 * X^0 =5* X^0"
-		res = check_output(["python", self.context_path + "/computor.py", equation])
+		res = check_output(["python", self.context_path + "/sample.py", equation])
 		self.assertEqual("Reduced form: 1 * X^0 = 0\nPolynomial degree: 0\nThere is no solutions\n", res)
 
 	def test_blanks_1(self):
 		# Degree 1
 		equation = "6*X^1 = 5 * X^0"
-		res = check_output(["python", self.context_path + "/computor.py", equation])
+		res = check_output(["python", self.context_path + "/sample.py", equation])
 		self.assertEqual(
 			"Reduced form: -5 * X^0 + 6 * X^1 = 0\nPolynomial degree: 1\nThe solution is:\n0.833333333333\n", res)
 		equation = "6 * X^1 = 0"
-		res = check_output(["python", self.context_path + "/computor.py", equation])
+		res = check_output(["python", self.context_path + "/sample.py", equation])
 		self.assertEqual(
 			"Reduced form: 6 * X^1 = 0\nPolynomial degree: 1\nThe solution is:\n0\n", res)
 
 	def test_blanks_2(self):
 		# Degree 2
 		equation = "5 *X^0+4*X^1 \t- 9.3 * X^2 =1*X^0"
-		res = check_output(["python", self.context_path + "/computor.py", equation])
+		res = check_output(["python", self.context_path + "/sample.py", equation])
 		self.assertEqual(
 			"Reduced form: 4 * X^0 + 4 * X^1 - 9.3 * X^2 = 0\nPolynomial degree: 2\n"
 			"Discriminant is strictly positive, the two solutions are:\n"
 			"-0.475131463909\n0.905238990791\n", res)
 
 		equation = "   7*X^0+5*X^1+ 3 * X^2 = 0"
-		res = check_output(["python", self.context_path + "/computor.py", equation])
+		res = check_output(["python", self.context_path + "/sample.py", equation])
 		self.assertEqual(
 			"Reduced form: 7 * X^0 + 5 * X^1 + 3 * X^2 = 0\nPolynomial degree: 2\n"
 			"Discriminant is strictly negative, the two solutions are:\n"
 			"-0.833333333333 + i1.28019095798\n-0.833333333333 - i1.28019095798\n", res)
 
 		equation = "0*X^0+0*X^1+3*X^2=0       "
-		res = check_output(["python", self.context_path + "/computor.py", equation])
+		res = check_output(["python", self.context_path + "/sample.py", equation])
 		self.assertEqual("Reduced form: 3 * X^2 = 0\nPolynomial degree: 2\nDiscriminant is null, the solution is:\n0\n",
 						 res)
 
 		equation = "       0=0*X^0+0*X^1+3*X^2"
-		res = check_output(["python", self.context_path + "/computor.py", equation])
+		res = check_output(["python", self.context_path + "/sample.py", equation])
 		self.assertEqual(
 			"Reduced form: -3 * X^2 = 0\nPolynomial degree: 2\nDiscriminant is null, the solution is:\n0\n",
 			res)
 
 	def test_errors_0(self):
 		equation = "0 = 0"
-		ret = call(["python", self.context_path + "/computor.py", equation], stderr=self.null)
+		ret = call(["python", self.context_path + "/sample.py", equation], stderr=self.null)
 		self.assertEqual(1, ret)
 
 	def test_errors_1(self):
 		equation = ""
-		ret = call(["python", self.context_path + "/computor.py", equation], stderr=self.null)
+		ret = call(["python", self.context_path + "/sample.py", equation], stderr=self.null)
 		self.assertEqual(1, ret)
 
 	def test_errors_2(self):
 		equation = "hello"
-		ret = call(["python", self.context_path + "/computor.py", equation], stderr=self.null)
+		ret = call(["python", self.context_path + "/sample.py", equation], stderr=self.null)
 		self.assertEqual(1, ret)
 
 	def test_errors_3(self):
 		equation = "hello = World"
-		ret = call(["python", self.context_path + "/computor.py", equation], stderr=self.null)
+		ret = call(["python", self.context_path + "/sample.py", equation], stderr=self.null)
 		self.assertEqual(1, ret)
 
 	def test_errors_4(self):
 		equation = "1 = 0"
-		ret = call(["python", self.context_path + "/computor.py", equation], stderr=self.null)
+		ret = call(["python", self.context_path + "/sample.py", equation], stderr=self.null)
 		self.assertEqual(1, ret)
 
 	def test_errors_5(self):
 		equation = "1 + x**2 = 0"
-		ret = call(["python", self.context_path + "/computor.py", equation], stderr=self.null)
+		ret = call(["python", self.context_path + "/sample.py", equation], stderr=self.null)
 		self.assertEqual(1, ret)
 
 	def test_replacement_s2(self):
 		# Degree 2
 		equation = "5 * x^0 + 4 * x^1 - 9.3 * x^2 = 1 * X^0"
-		res = check_output(["python", self.context_path + "/computor.py", equation])
+		res = check_output(["python", self.context_path + "/sample.py", equation])
 		self.assertEqual(
 			"Reduced form: 4 * X^0 + 4 * X^1 - 9.3 * X^2 = 0\nPolynomial degree: 2\n"
 			"Discriminant is strictly positive, the two solutions are:\n"
 			"-0.475131463909\n0.905238990791\n", res)
 
 		equation = "7 * X**0 + 5 * X^1 + 3 * X**2 = 0"
-		res = check_output(["python", self.context_path + "/computor.py", equation])
+		res = check_output(["python", self.context_path + "/sample.py", equation])
 		self.assertEqual(
 			"Reduced form: 7 * X^0 + 5 * X^1 + 3 * X^2 = 0\nPolynomial degree: 2\n"
 			"Discriminant is strictly negative, the two solutions are:\n"
 			"-0.833333333333 + i1.28019095798\n-0.833333333333 - i1.28019095798\n", res)
 
 		equation = "0 * x**0 + 0 * x^1 + 3 * X**2 = 0"
-		res = check_output(["python", self.context_path + "/computor.py", equation])
+		res = check_output(["python", self.context_path + "/sample.py", equation])
 		self.assertEqual("Reduced form: 3 * X^2 = 0\nPolynomial degree: 2\nDiscriminant is null, the solution is:\n0\n",
 						 res)
