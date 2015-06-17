@@ -3,7 +3,7 @@ import os
 from math import sqrt
 from subprocess import check_output, call
 
-import srcs.solver as solver
+import srcs.computor as solver
 import srcs.web_engine as web_engine
 
 
@@ -766,7 +766,7 @@ class FunctionalSolver(unittest.TestCase):
 	def test_basic_s2(self):
 		# Degree > 2
 		equation = "5 * X^0 + 4 * X^1 - 9.3 * X^12 = 1 * X^0"
-		res = check_output(["python", self.context_path + "/solver.py", equation])
+		res = check_output(["python", self.context_path + "/computor.py", equation])
 		self.assertEqual("Original Equation: 5 * X^0 + 4 * X^1 - 9.3 * X^12 = 1 * X^0\n"
 						 "Reduced form: 4 * X^0 + 4 * X^1 - 9.3 * X^12 = 0\n"
 						 "Polynomial degree: 12\n"
@@ -775,7 +775,7 @@ class FunctionalSolver(unittest.TestCase):
 	def test_basic_0(self):
 		# Degree 0 All solutions
 		equation = "5 * X^0 = 5 * X^0"
-		res = check_output(["python", self.context_path + "/solver.py", equation])
+		res = check_output(["python", self.context_path + "/computor.py", equation])
 		self.assertEqual(
 			"Original Equation: 5 * X^0 = 5 * X^0\nNo reduced form\nPolynomial degree: 0\nEvery complex number is solution\n",
 			res)
@@ -783,7 +783,7 @@ class FunctionalSolver(unittest.TestCase):
 	def test_basic_01(self):
 		# Degree 0 No solution
 		equation = "6 * X^0 = 5 * X^0"
-		res = check_output(["python", self.context_path + "/solver.py", equation])
+		res = check_output(["python", self.context_path + "/computor.py", equation])
 		self.assertEqual(
 			"Original Equation: 6 * X^0 = 5 * X^0\nReduced form: 1 * X^0 = 0\nPolynomial degree: 0\nThere is no solution\n",
 			res)
@@ -791,7 +791,7 @@ class FunctionalSolver(unittest.TestCase):
 	def test_basic_1(self):
 		# Degree 1
 		equation = "6 * X^1 = 5 * X^0"
-		res = check_output(["python", self.context_path + "/solver.py", equation])
+		res = check_output(["python", self.context_path + "/computor.py", equation])
 		self.assertEqual(
 			"Original Equation: 6 * X^1 = 5 * X^0\n"
 			"Reduced form: -5 * X^0 + 6 * X^1 = 0\n"
@@ -802,7 +802,7 @@ class FunctionalSolver(unittest.TestCase):
 
 	def test_basic_11(self):
 		equation = "6 * X^1 = 0"
-		res = check_output(["python", self.context_path + "/solver.py", equation])
+		res = check_output(["python", self.context_path + "/computor.py", equation])
 		self.assertEqual(
 			"Original Equation: 6 * X^1 = 0\nReduced form: 6 * X^1 = 0\nPolynomial degree: 1\nThe solution is:\n0\n",
 			res)
@@ -810,7 +810,7 @@ class FunctionalSolver(unittest.TestCase):
 	def test_basic_20(self):
 		# Degree 2
 		equation = "5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0"
-		res = check_output(["python", self.context_path + "/solver.py", equation])
+		res = check_output(["python", self.context_path + "/computor.py", equation])
 		self.assertEqual("Original Equation: 5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0\n"
 						 "Reduced form: 4 * X^0 + 4 * X^1 - 9.3 * X^2 = 0\nPolynomial degree: 2\n"
 						 "Discriminant is strictly positive, the two solutions are:\n"
@@ -818,7 +818,7 @@ class FunctionalSolver(unittest.TestCase):
 
 	def test_basic_21(self):
 		equation = "7 * X^0 + 5 * X^1 + 3 * X^2 = 0"
-		res = check_output(["python", self.context_path + "/solver.py", equation])
+		res = check_output(["python", self.context_path + "/computor.py", equation])
 		self.assertEqual("Original Equation: 7 * X^0 + 5 * X^1 + 3 * X^2 = 0\n"
 						 "Reduced form: 7 * X^0 + 5 * X^1 + 3 * X^2 = 0\nPolynomial degree: 2\n"
 						 "Discriminant is strictly negative, the two solutions are:\n"
@@ -827,7 +827,7 @@ class FunctionalSolver(unittest.TestCase):
 
 	def test_basic_22(self):
 		equation = "0 * X^0 + 0 * X^1 + 3 * X^2 = 0"
-		res = check_output(["python", self.context_path + "/solver.py", equation])
+		res = check_output(["python", self.context_path + "/computor.py", equation])
 		self.assertEqual("Original Equation: 0 * X^0 + 0 * X^1 + 3 * X^2 = 0\n"
 						 "Reduced form: 3 * X^2 = 0\nPolynomial degree: 2\nDiscriminant is null, the solution is:\n0\n",
 						 res)
@@ -835,7 +835,7 @@ class FunctionalSolver(unittest.TestCase):
 	def test_blanks_s2(self):
 		# Degree > 2
 		equation = "  5 * X^0 + 4 * X^1 - 9.3 * X^12 = 1 * X^0    "
-		res = check_output(["python", self.context_path + "/solver.py", equation])
+		res = check_output(["python", self.context_path + "/computor.py", equation])
 		self.assertEqual("Original Equation:   5 * X^0 + 4 * X^1 - 9.3 * X^12 = 1 * X^0    \n"
 						 "Formatted Equation: 5 * X^0 + 4 * X^1 - 9.3 * X^12 = 1 * X^0\n"
 						 "Reduced form: 4 * X^0 + 4 * X^1 - 9.3 * X^12 = 0\n"
@@ -845,14 +845,14 @@ class FunctionalSolver(unittest.TestCase):
 	def test_blanks_0(self):
 		# Degree 0 All solutions
 		equation = "5*X^0=5*X^0"
-		res = check_output(["python", self.context_path + "/solver.py", equation])
+		res = check_output(["python", self.context_path + "/computor.py", equation])
 		self.assertEqual("Original Equation: 5*X^0=5*X^0\n"
 						 "Formatted Equation: 5 * X^0 = 5 * X^0\n"
 						 "No reduced form\nPolynomial degree: 0\nEvery complex number is solution\n", res)
 
 		# Degree 0 No solution
 		equation = "6 * X^0 =5* X^0"
-		res = check_output(["python", self.context_path + "/solver.py", equation])
+		res = check_output(["python", self.context_path + "/computor.py", equation])
 		self.assertEqual("Original Equation: 6 * X^0 =5* X^0\n"
 						 "Formatted Equation: 6 * X^0 = 5 * X^0\n"
 						 "Reduced form: 1 * X^0 = 0\nPolynomial degree: 0\nThere is no solution\n", res)
@@ -860,7 +860,7 @@ class FunctionalSolver(unittest.TestCase):
 	def test_blanks_1(self):
 		# Degree 1
 		equation = "6*X^1 = 5 * X^0"
-		res = check_output(["python", self.context_path + "/solver.py", equation])
+		res = check_output(["python", self.context_path + "/computor.py", equation])
 		self.assertEqual(
 			"Original Equation: 6*X^1 = 5 * X^0\n"
 			"Formatted Equation: 6 * X^1 = 5 * X^0\n"
@@ -871,7 +871,7 @@ class FunctionalSolver(unittest.TestCase):
 
 	def test_blanks_11(self):
 		equation = " 6 * X^1 = 0 "
-		res = check_output(["python", self.context_path + "/solver.py", equation])
+		res = check_output(["python", self.context_path + "/computor.py", equation])
 		self.assertEqual("Original Equation:  6 * X^1 = 0 \n"
 						 "Formatted Equation: 6 * X^1 = 0\n"
 						 "Reduced form: 6 * X^1 = 0\nPolynomial degree: 1\nThe solution is:\n0\n", res)
@@ -879,7 +879,7 @@ class FunctionalSolver(unittest.TestCase):
 	def test_blanks_2(self):
 		# Degree 2
 		equation = "5 *X^0+4*X^1 \t- 9.3 * X^2 =1*X^0"
-		res = check_output(["python", self.context_path + "/solver.py", equation])
+		res = check_output(["python", self.context_path + "/computor.py", equation])
 		self.assertEqual(
 			"Original Equation: 5 *X^0+4*X^1 \t- 9.3 * X^2 =1*X^0\n"
 			"Formatted Equation: 5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0\n"
@@ -891,7 +891,7 @@ class FunctionalSolver(unittest.TestCase):
 
 	def test_blanks_21(self):
 		equation = "   7*X^0+5*X^1+ 3 * X^2 = 0"
-		res = check_output(["python", self.context_path + "/solver.py", equation])
+		res = check_output(["python", self.context_path + "/computor.py", equation])
 		self.assertEqual(
 			"Original Equation:    7*X^0+5*X^1+ 3 * X^2 = 0\n"
 			"Formatted Equation: 7 * X^0 + 5 * X^1 + 3 * X^2 = 0\n"
@@ -903,7 +903,7 @@ class FunctionalSolver(unittest.TestCase):
 
 	def test_blanks_22(self):
 		equation = "0*X^0+0*X^1+3*X^2=0       "
-		res = check_output(["python", self.context_path + "/solver.py", equation])
+		res = check_output(["python", self.context_path + "/computor.py", equation])
 		self.assertEqual("Original Equation: 0*X^0+0*X^1+3*X^2=0       \n"
 						 "Formatted Equation: 0 * X^0 + 0 * X^1 + 3 * X^2 = 0\n"
 						 "Reduced form: 3 * X^2 = 0\n"
@@ -913,7 +913,7 @@ class FunctionalSolver(unittest.TestCase):
 
 	def test_blanks_23(self):
 		equation = "       0=0*X^0+0*X^1+3*X^2"
-		res = check_output(["python", self.context_path + "/solver.py", equation])
+		res = check_output(["python", self.context_path + "/computor.py", equation])
 		self.assertEqual("Original Equation:        0=0*X^0+0*X^1+3*X^2\n"
 						 "Formatted Equation: 0 = 0 * X^0 + 0 * X^1 + 3 * X^2\n"
 						 "Reduced form: -3 * X^2 = 0\n"
@@ -923,38 +923,38 @@ class FunctionalSolver(unittest.TestCase):
 
 	def test_errors_0(self):
 		equation = "0 = 0"
-		ret = call(["python", self.context_path + "/solver.py", equation], stderr=self.null)
+		ret = call(["python", self.context_path + "/computor.py", equation], stderr=self.null)
 		self.assertEqual(1, ret)
 
 	def test_errors_1(self):
 		equation = ""
-		ret = call(["python", self.context_path + "/solver.py", equation], stderr=self.null)
+		ret = call(["python", self.context_path + "/computor.py", equation], stderr=self.null)
 		self.assertEqual(1, ret)
 
 	def test_errors_2(self):
 		equation = "hello"
-		ret = call(["python", self.context_path + "/solver.py", equation], stderr=self.null)
+		ret = call(["python", self.context_path + "/computor.py", equation], stderr=self.null)
 		self.assertEqual(1, ret)
 
 	def test_errors_3(self):
 		equation = "hello = World"
-		ret = call(["python", self.context_path + "/solver.py", equation], stderr=self.null)
+		ret = call(["python", self.context_path + "/computor.py", equation], stderr=self.null)
 		self.assertEqual(1, ret)
 
 	def test_errors_4(self):
 		equation = " = 0"
-		ret = call(["python", self.context_path + "/solver.py", equation], stderr=self.null)
+		ret = call(["python", self.context_path + "/computor.py", equation], stderr=self.null)
 		self.assertEqual(1, ret)
 
 	def test_errors_5(self):
 		equation = "1 + ^ + x**2 = 0"
-		ret = call(["python", self.context_path + "/solver.py", equation], stderr=self.null)
+		ret = call(["python", self.context_path + "/computor.py", equation], stderr=self.null)
 		self.assertEqual(1, ret)
 
 	def test_replacement_s20(self):
 		# Degree 2
 		equation = "5 * x^0 + 4 * x^1 - 9.3 * x^2 = 1 * X^0"
-		res = check_output(["python", self.context_path + "/solver.py", equation])
+		res = check_output(["python", self.context_path + "/computor.py", equation])
 		self.assertEqual(
 			"Original Equation: 5 * x^0 + 4 * x^1 - 9.3 * x^2 = 1 * X^0\n"
 			"Formatted Equation: 5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0\n"
@@ -966,7 +966,7 @@ class FunctionalSolver(unittest.TestCase):
 
 	def test_replacement_s21(self):
 		equation = "7 * X**0 + 5 * X^1 + 3 * X**2 = 0"
-		res = check_output(["python", self.context_path + "/solver.py", equation])
+		res = check_output(["python", self.context_path + "/computor.py", equation])
 		self.assertEqual(
 			"Original Equation: 7 * X**0 + 5 * X^1 + 3 * X**2 = 0\n"
 			"Formatted Equation: 7 * X^0 + 5 * X^1 + 3 * X^2 = 0\n"
@@ -978,7 +978,7 @@ class FunctionalSolver(unittest.TestCase):
 
 	def test_replacement_s22(self):
 		equation = "0 * x**0 + 0 * x^1 + 3 * X**2 = 0"
-		res = check_output(["python", self.context_path + "/solver.py", equation])
+		res = check_output(["python", self.context_path + "/computor.py", equation])
 		self.assertEqual("Original Equation: 0 * x**0 + 0 * x^1 + 3 * X**2 = 0\n"
 						 "Formatted Equation: 0 * X^0 + 0 * X^1 + 3 * X^2 = 0\n"
 						 "Reduced form: 3 * X^2 = 0\n"

@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template
-from srcs import solver
+from srcs import computor
 
 application = Flask(__name__)
 
@@ -61,7 +61,7 @@ def root():
         if equation is not None:
             top = "You gave the following input :"
             try:
-                solve = solver.Equation(str(equation))
+                solve = computor.Equation(str(equation))
                 eq_input = solve.__repr__().split("=")
                 message = solve.build_display_message()
                 response = split_list(message)
