@@ -10,7 +10,7 @@ This project allow to solve polynomial equation in the following degrees :
 
 ## Language
 
-Used Python 2.7 for this project
+Used Python 2.7 for this project with flask / jinja
 
 ## How to use
 
