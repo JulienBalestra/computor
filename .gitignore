@@ -54,3 +54,6 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# git archive --format=zip
+*.zip
