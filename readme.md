@@ -24,7 +24,7 @@ The symlink run-me allow you to run srcs/computor.py
 
 **See the illustrated example below :**
 
-<img src="computor.png">
+<img src="items/computor.png">
     
 **In python projects :**
 
