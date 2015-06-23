@@ -35,6 +35,8 @@ The symlink run-me allow you to run srcs/computor.py
 
     python web_engine.py
     
+The srcs/sample.py is a community draft used to get the coding guidelines
+    
 ## Amazon Web Services EB
 
 This project is ready to be pushed on AWS Elastic Beanstalk.
