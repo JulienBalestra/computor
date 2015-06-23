@@ -1,7 +1,7 @@
 # Equation Solver 
 
 [![Build Status](https://travis-ci.org/JulienBalestra/computor.svg?branch=master)](https://travis-ci.org/jbalestra/computor)
-[![Build Status](https://codeship.com/projects/87285)](https://codeship.com/projects/87095)
+[![Build Status](https://codeship.com/projects/87285)](https://codeship.com/projects/87285)
 
 
 This project allow to solve polynomial equation in the following degrees :
