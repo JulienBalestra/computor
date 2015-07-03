@@ -3,4 +3,6 @@ os:
    - osx
 language: python
 script: nosetests srcs/tests/
+after_success:
+  - coveralls
 
