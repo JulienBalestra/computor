@@ -62,7 +62,7 @@ or use the eb command line tool : [online doc](http://docs.aws.amazon.com/elasti
 
 ## Contributors
 
-*Note the srcs/sample.py (and associate srcs/tests/test_sample.py) is a community draft used to get the coding guidelines*
+*Note the srcs/sample.py (and associate srcs/tests/test_sample.py) is a community draft used to get the coding guidelines* by :
 
 * Julie Rossi
 * Umi Lefebvre
