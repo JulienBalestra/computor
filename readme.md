@@ -2,8 +2,6 @@
 
 [![Build Status](https://travis-ci.org/JulienBalestra/computor.svg?branch=master)](https://travis-ci.org/jbalestra/computor)
 
-[![Coverage Status](https://coveralls.io/repos/JulienBalestra/computor/badge.svg)](https://coveralls.io/r/JulienBalestra/computor)
-
 [ ![Codeship Status for Computor](https://codeship.com/projects/b94a96c0-fbd4-0132-e2d0-0ea73193a6c8/status?branch=master)](https://codeship.com/projects/87285)
 
 
