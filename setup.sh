@@ -27,7 +27,6 @@ function apt
     return $?
 }
 
-
 function main
 {
     go_to_dirname
