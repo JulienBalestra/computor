@@ -350,7 +350,7 @@ if __name__ == "__main__":
         except ArithmeticError:
             os.write(2, "The equation is not coherent, should be quoted like :\n"
                         "\"5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0\"\n")
-            exit(2)
+            exit(1)
     else:
         solver = Equation(args.parse_args().equation, goodies=goodies)
         solver.solve()
