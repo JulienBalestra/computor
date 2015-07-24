@@ -7,7 +7,7 @@
 
 
 **Online demo:**
-[http://demo.julienbalestra.com/computor](http://demo.julienbalestra.com/computor "http://demo.julienbalestra.com/computor")
+[http://region2.julienbalestra.com](http://region2.julienbalestra.com "http://region2.julienbalestra.com")
 
 
 This project allow to solve polynomial equation in the following degrees :
