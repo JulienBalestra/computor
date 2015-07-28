@@ -16,6 +16,7 @@ This project allow to solve polynomial equation in the following degrees :
 * 1
 * 2
 
+Computor v1 is a project of 42 programming school
 
 ## Language
 
@@ -23,7 +24,7 @@ Used Python 2.7 for this project with flask / jinja
 
 ## How to use
 
-The symlink run-me allow you to run srcs/computor.py
+The symbolic link run-me allow you to run home-project/srcs/computor.py
 
 
     ./run-me "5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0"
