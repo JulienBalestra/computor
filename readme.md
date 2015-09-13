@@ -6,9 +6,6 @@
 
 
 
-**Online demo:**
-[http://computor.julienbalestra.com](http://computor.julienbalestra.com "http://computor.julienbalestra.com")
-
 
 This project allow to solve polynomial equation in the following degrees :
 
