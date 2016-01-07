@@ -14,7 +14,7 @@ function packages
         exit 2
     fi
     pip install gunicorn
-    if [ $1 -ne 0 ]
+    if [ $? -ne 0 ]
     then
         echo "fail [pip install gunicorn flask]"
         exit 2
