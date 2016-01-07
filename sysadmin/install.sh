@@ -8,7 +8,7 @@ function packages
 {
     apt-get update -qq
     apt-get install git build-essential python-pip python-dev
-    if [ $1 -ne 0 ]
+    if [ $? -ne 0 ]
     then
         echo "fail [apt-get install python-pip python-dev]"
         exit 2
@@ -30,13 +30,13 @@ function goto_cwd
 function clone_project
 {
     git clone ${COMPUTOR}
-    if [ $1 -ne 0 ]
+    if [ $? -ne 0 ]
     then
         echo "fail [git clone ${COMPUTOR}]"
         exit 3
     fi
     pip install -r computor/requirements.txt
-    if [ $1 -ne 0 ]
+    if [ $? -ne 0 ]
     then
         echo "fail [pip install -r computor/requirements.txt]"
         exit 3
