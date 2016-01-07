@@ -7,4 +7,4 @@ CHDIR="/usr/local/src/computor/srcs"
 APP="web_engine:application"
 BIND="0.0.0.0:80"
 
-gunicorn ${APP} --chdir=${CHDIR} --pythonpath=${PYTHONPATH} --bind ${BIND} --daemon
+/usr/local/bin/gunicorn ${APP} --chdir=${CHDIR} --pythonpath=${PYTHONPATH} --bind ${BIND} --daemon
