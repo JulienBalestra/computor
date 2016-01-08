@@ -3,6 +3,7 @@
 set -x
 COMPUTOR="https://github.com/JulienBalestra/computor.git"
 WORK_DIR="/usr/local/src"
+APP_DIR="/usr/local/src/computor"
 
 function packages
 {
@@ -24,7 +25,8 @@ function packages
 function goto_cwd
 {
     cd ${WORK_DIR}
-    echo $(pwd -P) $(pwd -L)
+    pwd -P
+    pwd -L
 }
 
 function clone_project
@@ -43,6 +45,12 @@ function clone_project
     fi
 }
 
+function test_project
+{
+    python -m unittest discover ${APP_DIR}
+}
+
 packages
 goto_cwd
 clone_project
+test_project
