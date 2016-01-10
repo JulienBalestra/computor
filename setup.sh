@@ -19,7 +19,7 @@ function apt
     then 
         echo "failed to update"
     fi    
-    apt-get install -y python-pip python-dev nose gunicorn nginx
+    apt-get install -y python-pip python-dev python-nose
     if [ $? -ne 0 ]
     then 
         echo "failed to install packages"
